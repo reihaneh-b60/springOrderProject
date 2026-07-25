@@ -36,4 +36,6 @@ jobs:
           cache: maven
 
       - name: Build and run tests
+        env:
+          SECRET_KEY: ci-test-secret-key-not-for-production
         run: mvn clean verify
