@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import readyInterview.springclaudeproject.dto.UserDto;
 import readyInterview.springclaudeproject.entity.User;
+import readyInterview.springclaudeproject.service.NotificationProducer;
 import readyInterview.springclaudeproject.service.UserService;
 import java.util.List;
 
@@ -13,11 +14,13 @@ public class UserController {
 
     private final UserService userService;
 
+    public final NotificationProducer notificationProducer;
+
 
     @Autowired
-    public UserController(UserService userService) {
+    public UserController(UserService userService, NotificationProducer notificationProducer) {
         this.userService = userService;
-
+        this.notificationProducer = notificationProducer;
     }
 
     @PostMapping("/register")
@@ -37,5 +40,11 @@ public class UserController {
 
         return userService.findUser(userDto);
 
+    }
+
+    @GetMapping("/test-Notification")
+    public String testNotification() {
+        notificationProducer.sendNotification("Test message from producer");
+         return "This is a test notification";
     }
 }
