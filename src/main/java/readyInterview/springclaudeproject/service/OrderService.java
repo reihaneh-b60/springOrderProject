@@ -1,15 +1,12 @@
 package readyInterview.springclaudeproject.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
-import org.springframework.security.access.AccessDeniedException;
+
+import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import readyInterview.springclaudeproject.entity.Order;
-import readyInterview.springclaudeproject.exception.OrderNotFoundException;
 import readyInterview.springclaudeproject.repository.OrderRepository;
 
-import java.text.Collator;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -18,7 +15,9 @@ import java.util.stream.Collectors;
 @Service
 public class OrderService {
 
+
     private final OrderRepository orderRepository;
+    private RestTemplate restTemplate;
 
 
     public OrderService(OrderRepository orderRepository) {
@@ -26,20 +25,19 @@ public class OrderService {
     }
 
 
-//    public Map<Order.StatusOrder,List<Order>> getOrdersGroupedbyStatus() {
-//        List<Order> orders = orderRepository.findAll();
-//        return orders.stream()
-//                        .collect(Collectors.groupingBy(Order::getStatus));
-//    }
+    public Map<Order.StatusOrder,List<Order>> getOrdersGroupedbyStatus() {
+
+        List<Order> orders = orderRepository.findAll();
+        return orders.stream()
+                        .collect(Collectors.groupingBy(Order::getStatus));
+    }
 
 
+        public Optional<Order> getOrdersByUser(Long userId) {
 
+            return orderRepository.findById(userId);
+        }
 
-//        public Optional<Order> getOrdersByUser(Long userId) {
-//
-//            return orderRepository.findById(userId);
-//        }
-//
 //        @Transactional
 //        public void deleteOrder(Long orderId, Long userId) {
 //            Order order = orderRepository.findById(orderId)

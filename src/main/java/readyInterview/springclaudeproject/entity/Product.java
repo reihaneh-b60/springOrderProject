@@ -5,20 +5,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Products {
+public class Product {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productId;
     private String productName;
-    private int price;
+
+    @Column(precision =  10, scale = 2)
+    private BigDecimal price;
     private int quantity;
+
+    @Version
+    private int version;
 
 //    @OneToOne(cascade = CascadeType.ALL)
 //    @JoinColumn(name = "productId")

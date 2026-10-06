@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 import readyInterview.springclaudeproject.dto.UserDto;
 import readyInterview.springclaudeproject.entity.Role;
 import readyInterview.springclaudeproject.entity.User;
